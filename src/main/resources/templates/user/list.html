@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>书籍查询</title>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.pagination.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery.pagination.min.js"></script>
+    <script>
+        $(function() {
+            var cp=parseInt($("#curPage").val());
+            var tp=parseInt($("#tolPage").val());
+            $("#pagination2").pagination({
+                currentPage:cp,
+                totalPage:tp,
+                isShow: false,
+                count: 5,
+                prevPageText: "< 上一页",
+                nextPageText: "下一页 >",
+                callback: function(current) {
+                    location.href='/book/list/'+current;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<form id="form" class="form-inline definewidth m20"
+      action="/book/search" method="post">
+    书籍关键字： <input type="text" name="keyWord" id="username"
+                 class="abc input-default" placeholder="书籍关键字">&nbsp;&nbsp;
+    <input type="hidden" value="1" name="current"/>
+    书籍类别:<select class="form-control" name="sid">
+    <option value="0">---请选择类别---</option>
+    <option th:each="sort:${sortList}" th:text="${sort.name}" th:value="${sort.id}"></option>
+    </select>&nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary">查询</button>
+    &nbsp;&nbsp;
+    <input id="CurrentPage" type="hidden" name="currentPage" value="1" />
+</form>
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>书籍名称</th>
+        <th>书籍类别</th>
+        <th>作者</th>
+        <th>出版社</th>
+        <th>版本</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tr th:each="book:${page.data}">
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.sname}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.publish}"></td>
+        <td th:text="${book.edition}"></td>
+        <td><a type="button" class="btn btn-success" th:href="'/borrow/add?bookId='+${book.id}">借阅</a>
+        </td>
+    </tr>
+</table>
+<input th:value="${page.currentPage}" type="hidden" id="curPage"/>
+<input th:value="${page.totalPage}" type="hidden" id="tolPage"/>
+<center>
+    <div class="box">
+        <div id="pagination2" class="page fl"></div>
+    </div>
+</center>
+</body>
+
+</html>

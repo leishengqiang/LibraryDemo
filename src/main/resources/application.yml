@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: LibraryDemo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/library
+    username: root
+    password: 1234
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql
+  mapper-locations: "classpath*:/mapper/**/*.xml"
+
+server:
+  port: 8181
+

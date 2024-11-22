@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>书籍管理</title>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.pagination.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery.pagination.min.js"></script>
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        @media (max-width: 980px) {
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<form class="form-inline definewidth m20" id="form"
+      action="/book/findByKey" method="post">
+    书籍关键字： <input type="text" name="key" id="username"
+                 class="abc input-default" placeholder="书籍关键字" value="">&nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary">查询</button>
+    &nbsp;&nbsp; <a type="button" class="btn btn-primary"
+                    href="/sort/list">增加书籍</a>&nbsp;&nbsp;
+    <input id="CurrentPage" type="hidden" name="currentPage" value="1" />
+</form>
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>书籍名称</th>
+        <th>书籍类别</th>
+        <th>作者</th>
+        <th>出版社</th>
+        <th>版本</th>
+        <th>书籍数量</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tr th:each="book:${list}">
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.sname}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.publish}"></td>
+        <td th:text="${book.edition}"></td>
+        <td th:text="${book.number}"></td>
+        <td><a type="button" class="btn btn-success"
+               th:href="'/book/findById/'+${book.id}">修改</a>
+            <a type="button" class="btn btn-danger"
+               th:href="'/book/delete/'+${book.id}">删除</a>
+        </td>
+    </tr>
+</table>
+<center>
+    <div class="box">
+        <div id="pagination2" class="page fl"></div>
+    </div>
+</center>
+</body>
+</html>

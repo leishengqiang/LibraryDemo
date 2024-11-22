@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>书籍归还</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>借书ID</th>
+        <th>书籍名称</th>
+        <th>作者</th>
+        <th>出版社</th>
+        <th>版本</th>
+        <th>申请时间</th>
+        <th>还书状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tr th:each="back:${list}">
+        <td th:text="${back.id}"></td>
+        <td th:text="${back.bookName}"></td>
+        <td th:text="${back.author}"></td>
+        <td th:text="${back.publish}"></td>
+        <td th:text="${back.edition}"></td>
+        <td th:text="${back.startTime}"></td>
+        <td>
+            <button type="button" class="btn btn-default disabled" disabled>未归还</button>
+        </td>
+        <td>
+            <a type="button" class="btn btn-success" th:href="'/back/add?id='+${back.id}">归还</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
